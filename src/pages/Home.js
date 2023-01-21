@@ -1,26 +1,33 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import Pagination from './Pagination'
 import './Home.css'
 import { FaFemale, FaMale, FaUsers } from "react-icons/fa"
-
+import {BsCloudDownload} from 'react-icons/bs'
 
 const Home = () => {
   const [users, setUsers] = useState([])
   const [countries, setCountries] = useState([])
 
   const [search, setSearch] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [recordsPerPage] = useState(3)
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
+  const currentRecord = users.slice(indexOfFirstRecord, indexOfLastRecord)
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
 
   }
-  const filteredSearch = !search ? users : users.filter(users => users.gender.toLowerCase() === search.toLowerCase())
+  const filteredSearch = !search ? currentRecord : currentRecord.filter(users => users.gender.toLowerCase() === search.toLowerCase())
 
 
   useEffect(() => {
 
-    axios.get('https://randomuser.me/api/?results=3')
+    axios.get('https://randomuser.me/api/?results=10')
       .then(resp => {
         console.log(resp)
         setUsers(resp.data.results)
@@ -109,6 +116,20 @@ const Home = () => {
             </div>
           </div>
         ))}
+
+        <div className='row justify-content-between mt-4'>
+          <div className='col-4 pt-2 text-center' style={{ height:'3rem',  borderRadius:'2rem', backgroundColor:'#7946c1',}}>
+              <a href='#' download={currentRecord} style={{textDecoration:'none', color:'#fff', }}>
+                <BsCloudDownload/> Download Results
+                </a>
+          </div>
+          <div className='col-5'>
+          <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          />
+          </div>
+        </div>
       </div>
     </div>
   )
