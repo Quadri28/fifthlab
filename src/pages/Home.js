@@ -34,7 +34,7 @@ const Home = () => {
   return (
     <div className='wrapper row gap-3 g-3 py-5 justify-content-center'>
 
-      <div className='col-md-4 mx-auto mt-4'>
+      <div className='col-md-4 mx-auto mt-4 px-3'>
         <p className='text-white mb-4'>Hello <b style={{ fontWeight: '700' }}>Emerald </b></p>
         <span style={{ fontSize: '11px' }} className='text-white'>
           Welcome to your dashboard, kindly sort through the user base
@@ -45,7 +45,7 @@ const Home = () => {
             style={{ height: '4rem', borderRadius: '1em', backgroundColor: '#ededed' }} value={search} onChange={(e) => handleSearch(e)} />
         </div>
 
-        <div className="row gap-3 g-3 mt-4">
+        <div className="row gap-5 g-3 mt-4">
 
         <div className='text-white col-sm-3 text-center'>
           <button className="btn bnt-lg w-100" style={{ height: '4rem', backgroundColor: '#f935a9', 
